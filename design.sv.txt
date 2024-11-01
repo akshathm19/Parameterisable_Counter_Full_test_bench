@@ -1,0 +1,16 @@
+module param_counter #(
+    parameter WIDTH = 4   
+) (
+    input logic clk,        // Clock signal
+    input logic reset,      // Active-low reset signal
+    output logic [WIDTH-1:0] count  // Output count signal
+);
+
+  always_ff @(posedge clk or negedge reset) begin
+    if (!reset) begin
+            count <= 0;  // Reset count to zero
+        end else begin
+            count <= count + 1;  // Increment count
+        end
+    end
+endmodule

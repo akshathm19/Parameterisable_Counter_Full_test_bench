@@ -1,0 +1,9 @@
+module driver(mycounter_intf.drv intf);
+    initial begin
+        intf.reset = 1;
+        #10 intf.reset = 0;
+        #10 intf.reset = 1;
+        #10 intf.reset = 0;
+        #10 intf.reset = 1;
+    end
+endmodule

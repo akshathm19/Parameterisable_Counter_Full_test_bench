@@ -1,0 +1,5 @@
+module monitor(mycounter_intf.mon intf);
+    always @(posedge intf.clk) begin
+        $display("Time = %0t | Count: %0d", $time, intf.count);
+    end
+endmodule

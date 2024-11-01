@@ -1,0 +1,34 @@
+`include "interface.sv"
+`include "environment.sv"
+
+
+
+module top;
+    parameter WIDTH = 4;
+
+    // Instantiate the interface
+    mycounter_intf #(WIDTH) intf();
+
+    // Instantiate the DUT
+    param_counter #(WIDTH) dut (
+        .clk(intf.clk),
+        .reset(intf.reset),
+        .count(intf.count)
+    );
+
+    // Instantiate the environment
+    env #(WIDTH) environment(intf);
+
+    // Generate clock signal
+    initial begin
+        intf.clk = 0;
+        forever #5 intf.clk = ~intf.clk;
+    end
+
+    // Dump waveforms for debugging
+    initial begin
+        $dumpfile("counter.vcd");
+        $dumpvars;
+        #300 $finish;
+    end
+endmodule

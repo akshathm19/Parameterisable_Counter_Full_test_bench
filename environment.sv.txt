@@ -1,0 +1,13 @@
+`include "driver.sv"
+`include "monitor.sv"
+`include "scoreboard.sv"
+
+module env #(parameter WIDTH = 4) (mycounter_intf intf); 
+    // Instantiate the driver, monitor, and scoreboard
+  driver drv(intf.drv);
+  	monitor mon(intf.mon);
+    scoreboard  #(4) sb(intf.sb);
+
+endmodule
+
+

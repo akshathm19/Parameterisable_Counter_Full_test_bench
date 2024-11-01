@@ -1,0 +1,22 @@
+module scoreboard #(parameter WIDTH = 4)(mycounter_intf.sb intf);
+  logic [WIDTH-1:0] expected_count;
+
+    initial begin
+        expected_count = 0;
+    end
+
+    always @(posedge intf.clk) begin
+      if (!intf.reset) begin  
+            expected_count <= 0;
+        end else begin
+            expected_count <= expected_count + 1;
+       
+        end
+
+        if (intf.count !== expected_count) begin
+            $error("Mismatch at time %0t: Expected %0d, Got %0d", $time, expected_count, intf.count);
+        end else begin
+            $display("Match at time %0t: Count = %0d", $time, intf.count);
+        end
+    end
+endmodule
